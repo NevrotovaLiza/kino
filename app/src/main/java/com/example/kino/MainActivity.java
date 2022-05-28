@@ -2,8 +2,10 @@ package com.example.kino;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,5 +19,16 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent =null;
+        switch (item.getItemId())
+        {
+            case R.id.m1: intent = new Intent(this, cinema.class);
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
 }
