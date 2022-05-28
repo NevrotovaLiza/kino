@@ -17,11 +17,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".newfilm"
+            android:exported="false" />
+        <activity
+            android:name=".newcinema"
+            android:exported="false" />
+        <activity
+            android:name=".film"
+            android:exported="false" />
+        <activity
             android:name=".cinema"
             android:exported="false" />
+
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".MainActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
