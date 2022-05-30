@@ -29,14 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class newfilm extends AppCompatActivity {
-
     TextView tvInfo;
     EditText tvName;
     newfilm.MyTask mt;
     newfilm.MyTaskN mtn;
     newfilm.MyTaskTF mttf;
     ListView lvMain;
-
+    //    String ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +50,7 @@ public class newfilm extends AppCompatActivity {
     public void onclick(View v) {
         mtn = new newfilm.MyTaskN();
         mtn.execute(tvName.getText().toString());
+        // lvMain.getCheckedItemPositions();
     }
     class MyTaskTF extends AsyncTask<String, Void, Void > {
         @Override
@@ -78,7 +78,7 @@ public class newfilm extends AppCompatActivity {
             }
             myConnection.setDoOutput(true);
             try {
-                myConnection.getOutputStream().write( ("id=3&СinemaID=" + params[0]+"&FilmID="+params[1]).getBytes());
+                myConnection.getOutputStream().write( ("id=3&cinemaID=" + params[0]+"&filmID="+params[1]).getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
             };
@@ -89,6 +89,7 @@ public class newfilm extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+//                tvInfo.setText(str);
             if (i==200) {
                 InputStream responseBody=null;
                 try {
@@ -183,7 +184,7 @@ public class newfilm extends AppCompatActivity {
                     mttf.execute(st[1],result);
                 };
             }
-            tvInfo.setText("Выполнено");
+            tvInfo.setText("Done");
         }
     }
     class MyTask extends AsyncTask<Void, Void, ArrayList<String[]>>{
@@ -198,7 +199,7 @@ public class newfilm extends AppCompatActivity {
             ArrayList<String[]> res = new ArrayList<>();
             HttpURLConnection myConnection = null;
             try {
-                URL githubEndpoint = new URL("http://10.0.2.2:8080/json?id=3");
+                URL githubEndpoint = new URL("http://10.0.2.2:8080/kino?id=3");
                 myConnection =
                         (HttpURLConnection) githubEndpoint.openConnection();
             } catch (MalformedURLException e) {
@@ -210,7 +211,6 @@ public class newfilm extends AppCompatActivity {
                 tvInfo.setText("2");
 
             }
-
             int i=0;
             try {
                 i = myConnection.getResponseCode();
@@ -298,10 +298,10 @@ public class newfilm extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<String[]> result) {
             super.onPostExecute(result);
-            newfilm.ClAdapter adapter3=new newfilm.ClAdapter(tvInfo.getContext(),result);
+            newfilm.ClAdapter clAdapter=new newfilm.ClAdapter(tvInfo.getContext(),result);
 //            lvMain = (ListView) findViewById(R.id.lvMain);
-            lvMain.setAdapter(adapter3);
-            tvInfo.setText("End");
+            lvMain.setAdapter(clAdapter);
+            tvInfo.setText("Select cinema:");
         }
 
     }
